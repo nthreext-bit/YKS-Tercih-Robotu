@@ -145,13 +145,16 @@ export default defineConfig({
           </div>
 
           {/* Additional GitHub Actions alternative */}
-          <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs text-emerald-950 space-y-1">
+          <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs text-emerald-950 space-y-2">
             <h4 className="font-bold flex items-center gap-2 text-emerald-900">
               <Rocket className="w-4 h-4 text-emerald-600" />
-              Alternatif: GitHub Actions Otomatik Deployment
+              GitHub Actions Otomatik Deployment Yeteneği Hazır!
             </h4>
-            <p>
-              Projenizde <code className="bg-emerald-100 px-1 py-0.5 rounded text-[11px] font-bold">.github/workflows/deploy.yml</code> dosyası oluşturarak her main dalına push yaptığınızda otomatik olarak da yayına alabilirsiniz.
+            <p className="text-emerald-900">
+              Projenizde <code className="bg-emerald-100 px-1.5 py-0.5 rounded text-[11px] font-bold">.github/workflows/deploy.yml</code> dosyası oluşturulmuştur.
+            </p>
+            <p className="text-emerald-800">
+              GitHub repository'nizin <strong>Settings &rarr; Pages</strong> ayarlarından Build and deployment kaynağını <strong>"GitHub Actions"</strong> olarak seçtiğinizde, her <code className="font-bold">main</code> dalına yapılan <code className="font-bold">git push</code> işleminde siteniz otomatik derlenip yayına alınacaktır.
             </p>
           </div>
 
