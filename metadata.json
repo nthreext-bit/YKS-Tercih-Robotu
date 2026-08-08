@@ -1,0 +1,6 @@
+{
+  "name": "YKS Tercih Robotu",
+  "description": "ÖSYM YKS kılavuz verileriyle üniversite ve bölüm tercih robotu, net ve puan hesaplayıcı, 3 yıllık sıralama trend analizi ve akıllı tercih listesi oluşturucu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
