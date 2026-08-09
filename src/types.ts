@@ -25,6 +25,7 @@ export interface YearData {
   quotaTop?: number;      // Birincilik Kontenjanı
   isFull: boolean;        // Doldu mu
   placedCount?: number;   // Yerleşen Sayısı
+  isClosed?: boolean;     // 2026 Kılavuzunda öğrenci alımı kapandı/kaldırıldı mı
 }
 
 export interface Program {
@@ -132,7 +133,8 @@ export interface FilterState {
   userTargetScore: number | null;
   selectedYears: number[]; // e.g. [2024, 2025, 2026]
   onlyFull: boolean;
-  sortBy: 'rankAsc' | 'rankDesc' | 'scoreDesc' | 'scoreAsc' | 'quotaDesc' | 'nameAsc';
+  onlyActive2026: boolean; // Sadece 2026 ÖSYM Kılavuzunda Yer Alan & Öğrenci Alan Programlar
+  sortBy: 'rankAsc' | 'rankDesc' | 'scoreDesc' | 'scoreAsc' | 'quotaDesc' | 'nameAsc' | 'nameDesc' | 'cityAsc' | 'cityDesc' | 'uniAsc' | 'uniDesc';
 }
 
 export interface GuideImportRow {

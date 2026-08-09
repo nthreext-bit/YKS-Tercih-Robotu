@@ -15,13 +15,18 @@ import {
   Sparkles,
   ShieldAlert,
   ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
   BookOpen,
   Hash,
   Award,
   GraduationCap,
   Share2,
   Copy,
-  Link
+  Link,
+  CheckCircle2,
+  AlertCircle,
+  Globe
 } from 'lucide-react';
 
 interface ProgramSearchProps {
@@ -58,6 +63,7 @@ const INITIAL_FILTERS: FilterState = {
   userTargetScore: null,
   selectedYears: [2024, 2025, 2026],
   onlyFull: true,
+  onlyActive2026: true,
   sortBy: 'rankAsc'
 };
 
@@ -99,6 +105,12 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
   const [onlyUserMatches, setOnlyUserMatches] = useState(false);
   const [copiedShareUrl, setCopiedShareUrl] = useState(false);
 
+  // Default list state: empty until user triggers search or passes URL parameters
+  const [hasSearched, setHasSearched] = useState<boolean>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.toString().length > 0;
+  });
+
   // Synchronize state changes to URL parameters for GitHub Pages & link sharing
   useEffect(() => {
     const params = new URLSearchParams();
@@ -132,9 +144,27 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
     return userScores.sayRank || userScores.eaRank || userScores.tytRank;
   }, [filters.scoreType, userScores]);
 
-  // Main Filtering logic matching all 11 explicit requested headings
+  // Main Filtering logic matching all ÖSYM criteria & 2026 active guide rules
   const filteredPrograms = useMemo(() => {
     return programs.filter((p) => {
+      // 0. 2026 ÖSYM Kılavuzunda Yer Alma / Aktif Öğrenci Alımı Kontrolü
+      if (filters.onlyActive2026) {
+        const y26 = p.years[2026];
+        const isClosed = !y26 || y26.quota === 0 || y26.isClosed === true || p.notes?.includes('Kapatıldı') || p.notes?.includes('Öğrenci Alınmayacak');
+        if (isClosed) {
+          return false;
+        }
+      }
+
+      // Check if it's an Open Education or Remote Education program
+      const isAofOrRemote = p.educationType === 'Açıköğretim' || 
+                            p.educationType === 'Uzaktan Eğitim' ||
+                            p.faculty.includes('Açıköğretim') || 
+                            p.faculty.includes('AUZEF') || 
+                            p.faculty.includes('AÖF') ||
+                            p.programName.includes('Açıköğretim') ||
+                            p.programName.includes('Uzaktan');
+
       // 1. Genel Arama (Search Bar)
       if (filters.searchQuery.trim()) {
         const q = filters.searchQuery.toLowerCase('tr-TR');
@@ -178,8 +208,8 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
         }
       }
 
-      // 6. Şehir Filtresi
-      if (filters.selectedCities.length > 0 && !filters.selectedCities.includes(p.city)) {
+      // 6. Şehir Filtresi (Açıköğretim ve Uzaktan Eğitim programları tüm Türkiye'den tercih edilebilir, şehir kısıtına takılmaz)
+      if (filters.selectedCities.length > 0 && !filters.selectedCities.includes(p.city) && !isAofOrRemote) {
         return false;
       }
 
@@ -202,8 +232,23 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
       }
 
       // 10. Öğretim Türü Filtresi
-      if (filters.educationTypes.length > 0 && !filters.educationTypes.includes(p.educationType)) {
-        return false;
+      if (filters.educationTypes.length > 0) {
+        const matchesEdu = filters.educationTypes.some((selectedEdu) => {
+          if (selectedEdu === 'Açıköğretim') {
+            return p.educationType === 'Açıköğretim' || p.faculty.includes('Açıköğretim') || p.faculty.includes('AUZEF') || p.faculty.includes('AÖF') || p.programName.includes('Açıköğretim');
+          }
+          if (selectedEdu === 'Uzaktan Eğitim') {
+            return p.educationType === 'Uzaktan Eğitim' || p.educationType === 'Uzaktan Öğretim' || p.programName.includes('Uzaktan') || p.notes?.includes('Uzaktan');
+          }
+          if (selectedEdu === 'Örgün') {
+            return p.educationType === 'Örgün' && !isAofOrRemote;
+          }
+          if (selectedEdu === 'İkinci Öğretim') {
+            return p.educationType === 'İkinci Öğretim' || p.programName.includes('İkinci Öğretim') || p.programName.includes('(İÖ)');
+          }
+          return p.educationType === selectedEdu;
+        });
+        if (!matchesEdu) return false;
       }
 
       // 11. En Az & En Çok Başarı Sırası Filtresi
@@ -236,13 +281,37 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
       if (filters.sortBy === 'scoreDesc') return scoreB - scoreA;
       if (filters.sortBy === 'scoreAsc') return scoreA - scoreB;
       if (filters.sortBy === 'nameAsc') return a.programName.localeCompare(b.programName, 'tr-TR');
+      if (filters.sortBy === 'nameDesc') return b.programName.localeCompare(a.programName, 'tr-TR');
+      if (filters.sortBy === 'cityAsc') return a.city.localeCompare(b.city, 'tr-TR');
+      if (filters.sortBy === 'cityDesc') return b.city.localeCompare(a.city, 'tr-TR');
+      if (filters.sortBy === 'uniAsc') return a.universityName.localeCompare(b.universityName, 'tr-TR');
+      if (filters.sortBy === 'uniDesc') return b.universityName.localeCompare(a.universityName, 'tr-TR');
       return 0;
     });
   }, [programs, filters, onlyUserMatches, activeUserRank]);
 
+  const handleSortToggle = (field: 'rank' | 'score' | 'city' | 'name' | 'uni') => {
+    setFilters((prev) => {
+      let nextSort = prev.sortBy;
+      if (field === 'rank') {
+        nextSort = prev.sortBy === 'rankAsc' ? 'rankDesc' : 'rankAsc';
+      } else if (field === 'score') {
+        nextSort = prev.sortBy === 'scoreDesc' ? 'scoreAsc' : 'scoreDesc';
+      } else if (field === 'city') {
+        nextSort = prev.sortBy === 'cityAsc' ? 'cityDesc' : 'cityAsc';
+      } else if (field === 'name') {
+        nextSort = prev.sortBy === 'nameAsc' ? 'nameDesc' : 'nameAsc';
+      } else if (field === 'uni') {
+        nextSort = prev.sortBy === 'uniAsc' ? 'uniDesc' : 'uniAsc';
+      }
+      return { ...prev, sortBy: nextSort };
+    });
+  };
+
   const resetFilters = () => {
     setFilters(INITIAL_FILTERS);
     setOnlyUserMatches(false);
+    setHasSearched(false);
   };
 
   const toggleCity = (city: string) => {
@@ -289,15 +358,28 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
         <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
           
           {/* Main Search Bar */}
-          <div className="relative flex-1">
-            <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={filters.searchQuery}
-              onChange={(e) => setFilters({ ...filters, searchQuery: e.target.value })}
-              placeholder="Genel Arama (Üniversite, Bölüm Adı veya Program Kodu)"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm outline-none transition-all"
-            />
+          <div className="relative flex-1 flex items-center gap-2">
+            <div className="relative flex-1">
+              <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={filters.searchQuery}
+                onChange={(e) => {
+                  setFilters({ ...filters, searchQuery: e.target.value });
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') setHasSearched(true);
+                }}
+                placeholder="Genel Arama (Üniversite, Bölüm Adı veya Program Kodu)"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm outline-none transition-all"
+              />
+            </div>
+            <button
+              onClick={() => setHasSearched(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition-all shadow-md shrink-0 cursor-pointer"
+            >
+              <Search className="w-4 h-4" /> Ara
+            </button>
           </div>
 
           {/* Quick Score Type Selector Pills */}
@@ -387,6 +469,35 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
             >
               <RotateCcw className="w-3 h-3" /> Sıfırla
             </button>
+          </div>
+
+          {/* Primary Search Action Button under Sidebar Headings */}
+          <button
+            onClick={() => setHasSearched(true)}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+          >
+            <Search className="w-4 h-4" /> Ara / Programları Listele
+          </button>
+
+          {/* 2026 ÖSYM Kılavuzu Aktiflik Kontrolü */}
+          <div className="p-3 bg-emerald-50/90 rounded-xl border border-emerald-200 space-y-1.5">
+            <label className="flex items-start gap-2.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={filters.onlyActive2026}
+                onChange={(e) => setFilters({ ...filters, onlyActive2026: e.target.checked })}
+                className="mt-0.5 rounded border-emerald-300 text-emerald-600 focus:ring-emerald-500"
+              />
+              <div>
+                <span className="text-xs font-bold text-emerald-950 block flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  Sadece 2026 Kılavuzunda Aktif Programlar
+                </span>
+                <span className="text-[10px] text-emerald-800 block mt-0.5 leading-snug">
+                  2026 ÖSYM Kılavuzunda yer almayan veya kapatılan bölümleri listemeden çıkarır.
+                </span>
+              </div>
+            </label>
           </div>
 
           {/* 1. Puan Türü */}
@@ -585,10 +696,16 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
               onChange={(e: any) => setFilters({ ...filters, sortBy: e.target.value })}
               className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white text-slate-800 outline-none focus:border-blue-500 font-semibold"
             >
-              <option value="rankAsc">2025 Sıralaması (En İyi → Düşük)</option>
-              <option value="rankDesc">2025 Sıralaması (Düşük → En İyi)</option>
+              <option value="rankAsc">2025 Sıralaması (1 → N En İyi)</option>
+              <option value="rankDesc">2025 Sıralaması (N → 1)</option>
               <option value="scoreDesc">2025 Taban Puan (Yüksek → Düşük)</option>
-              <option value="nameAsc">Program Adı (A-Z)</option>
+              <option value="scoreAsc">2025 Taban Puan (Düşük → Yüksek)</option>
+              <option value="cityAsc">Şehir (A → Z)</option>
+              <option value="cityDesc">Şehir (Z → A)</option>
+              <option value="nameAsc">Program Adı (A → Z)</option>
+              <option value="nameDesc">Program Adı (Z → A)</option>
+              <option value="uniAsc">Üniversite Adı (A → Z)</option>
+              <option value="uniDesc">Üniversite Adı (Z → A)</option>
             </select>
           </div>
 
@@ -616,8 +733,113 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
             </div>
           </div>
 
-          {/* Empty Results State */}
-          {filteredPrograms.length === 0 ? (
+          {/* Quick Interactive Sorting Header Bar */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3 shadow-xs flex flex-wrap items-center justify-between gap-2.5 text-xs">
+            <div className="flex items-center gap-1.5 font-bold text-slate-800 shrink-0">
+              <ArrowUpDown className="w-4 h-4 text-blue-600" />
+              <span>Sıralama Ölçütü:</span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5 flex-1 justify-start sm:justify-end">
+              {/* Sıralama (Rank) */}
+              <button
+                onClick={() => handleSortToggle('rank')}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  filters.sortBy === 'rankAsc' || filters.sortBy === 'rankDesc'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                }`}
+                title="2025 Başarı Sırasına Göre Sırala"
+              >
+                <span>Başarı Sırası</span>
+                {filters.sortBy === 'rankAsc' && <ArrowUp className="w-3.5 h-3.5 text-white" />}
+                {filters.sortBy === 'rankDesc' && <ArrowDown className="w-3.5 h-3.5 text-white" />}
+              </button>
+
+              {/* Taban Puan */}
+              <button
+                onClick={() => handleSortToggle('score')}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  filters.sortBy === 'scoreDesc' || filters.sortBy === 'scoreAsc'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                }`}
+                title="Taban Puana Göre Sırala"
+              >
+                <span>Taban Puan</span>
+                {filters.sortBy === 'scoreDesc' && <ArrowDown className="w-3.5 h-3.5 text-white" />}
+                {filters.sortBy === 'scoreAsc' && <ArrowUp className="w-3.5 h-3.5 text-white" />}
+              </button>
+
+              {/* Şehir */}
+              <button
+                onClick={() => handleSortToggle('city')}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  filters.sortBy === 'cityAsc' || filters.sortBy === 'cityDesc'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                }`}
+                title="Şehre Göre Sırala"
+              >
+                <span>Şehir</span>
+                {filters.sortBy === 'cityAsc' && <ArrowUp className="w-3.5 h-3.5 text-white" />}
+                {filters.sortBy === 'cityDesc' && <ArrowDown className="w-3.5 h-3.5 text-white" />}
+              </button>
+
+              {/* Program Adı */}
+              <button
+                onClick={() => handleSortToggle('name')}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  filters.sortBy === 'nameAsc' || filters.sortBy === 'nameDesc'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                }`}
+                title="Program Adına Göre Sırala"
+              >
+                <span>Program Adı</span>
+                {filters.sortBy === 'nameAsc' && <ArrowUp className="w-3.5 h-3.5 text-white" />}
+                {filters.sortBy === 'nameDesc' && <ArrowDown className="w-3.5 h-3.5 text-white" />}
+              </button>
+
+              {/* Üniversite */}
+              <button
+                onClick={() => handleSortToggle('uni')}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                  filters.sortBy === 'uniAsc' || filters.sortBy === 'uniDesc'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                }`}
+                title="Üniversite Adına Göre Sırala"
+              >
+                <span>Üniversite</span>
+                {filters.sortBy === 'uniAsc' && <ArrowUp className="w-3.5 h-3.5 text-white" />}
+                {filters.sortBy === 'uniDesc' && <ArrowDown className="w-3.5 h-3.5 text-white" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Default Empty List State before user triggers Search */}
+          {!hasSearched ? (
+            <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center shadow-xs space-y-4">
+              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto">
+                <Search className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Arama Yapmak İçin Filtreleri Belirleyip 'Ara' Butonuna Basınız</h3>
+                <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto leading-relaxed">
+                  Veritabanında toplam <strong className="text-slate-800">{programs.length} ÖSYM programı</strong> kayıtlıdır. Sol taraftaki 11 farklı ÖSYM kriterini seçip <strong className="text-blue-700">"Ara / Programları Listele"</strong> butonuna tıklayarak sonuçları listeleyebilirsiniz.
+                </p>
+              </div>
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  onClick={() => setHasSearched(true)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-xs flex items-center gap-2 transition-all shadow-md shadow-blue-500/20 cursor-pointer"
+                >
+                  <Search className="w-4 h-4" /> Ara / Programları Listele ({filteredPrograms.length} Program)
+                </button>
+              </div>
+            </div>
+          ) : filteredPrograms.length === 0 ? (
             <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
               <ShieldAlert className="w-12 h-12 text-slate-300 mx-auto mb-3" />
               <h3 className="font-bold text-slate-800 text-base">Aradığınız Kriterlerde Program Bulunamadı</h3>
@@ -681,6 +903,18 @@ export const ProgramSearch: React.FC<ProgramSearchProps> = ({
                         <span className="bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-semibold px-2 py-0.5 rounded">
                           {program.durationYears === 2 ? 'Ön Lisans (2 Yıl)' : `${program.durationYears} Yıl Lisans`}
                         </span>
+                        {/* 2026 ÖSYM Kılavuz Status Badge */}
+                        {program.years[2026]?.isClosed || program.years[2026]?.quota === 0 ? (
+                          <span className="bg-rose-100 text-rose-800 border border-rose-300 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                            <AlertCircle className="w-3 h-3 text-rose-600" />
+                            2026 Kılavuzunda Kapatıldı
+                          </span>
+                        ) : (
+                          <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600 text-xs" />
+                            2026 ÖSYM Kılavuzunda Aktif
+                          </span>
+                        )}
                         {categoryText && (
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${categoryClass}`}>
                             {categoryText}

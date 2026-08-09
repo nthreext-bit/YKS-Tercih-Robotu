@@ -110,8 +110,12 @@ export const PreferenceListBuilder: React.FC<PreferenceListBuilderProps> = ({
       'Şehir': item.program.city,
       'Puan Türü': item.program.scoreType,
       'Burs Durumu': item.program.scholarship,
-      '2025 Taban Sıralaması': item.program.years[2025]?.minRank || 'Dolmadı',
-      '2025 Taban Puanı': item.program.years[2025]?.minScore || '-',
+      '2024 Taban Sıra': item.program.years[2024]?.minRank || '-',
+      '2024 Taban Puan': item.program.years[2024]?.minScore || '-',
+      '2025 Taban Sıra': item.program.years[2025]?.minRank || '-',
+      '2025 Taban Puan': item.program.years[2025]?.minScore || '-',
+      '2026 Taban Sıra': item.program.years[2026]?.minRank || '-',
+      '2026 Taban Puan': item.program.years[2026]?.minScore || '-',
       'Kategori': item.category,
       'Özel Koşullar': item.program.notes || ''
     }));
@@ -309,15 +313,37 @@ export const PreferenceListBuilder: React.FC<PreferenceListBuilderProps> = ({
                   </div>
                 </div>
 
-                {/* Score & Rank Info */}
-                <div className="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-100 shrink-0 text-right">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase">2025 Sıralaması</p>
-                  <p className="text-sm font-extrabold text-blue-700">
-                    {y25?.minRank ? y25.minRank.toLocaleString('tr-TR') : 'Dolmadı'}
-                  </p>
-                  <p className="text-[10px] text-slate-500">
-                    Taban: {y25?.minScore || '-'} Puan
-                  </p>
+                {/* 3-Year Historical Score & Rank Info */}
+                <div className="bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200 shrink-0 flex items-center gap-3 text-center">
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400">2024</p>
+                    <p className="text-xs font-bold text-slate-700">
+                      {item.program.years[2024]?.minRank ? item.program.years[2024]?.minRank.toLocaleString('tr-TR') : '-'}
+                    </p>
+                    <p className="text-[10px] text-slate-500 font-medium">
+                      {item.program.years[2024]?.minScore || '-'} P
+                    </p>
+                  </div>
+
+                  <div className="border-l border-slate-200 pl-3">
+                    <p className="text-[10px] font-bold text-blue-600">2025</p>
+                    <p className="text-xs font-extrabold text-blue-700">
+                      {item.program.years[2025]?.minRank ? item.program.years[2025]?.minRank.toLocaleString('tr-TR') : '-'}
+                    </p>
+                    <p className="text-[10px] font-bold text-blue-600">
+                      {item.program.years[2025]?.minScore || '-'} P
+                    </p>
+                  </div>
+
+                  <div className="border-l border-slate-200 pl-3">
+                    <p className="text-[10px] font-bold text-emerald-600">2026</p>
+                    <p className="text-xs font-bold text-emerald-700">
+                      {item.program.years[2026]?.minRank ? item.program.years[2026]?.minRank.toLocaleString('tr-TR') : '-'}
+                    </p>
+                    <p className="text-[10px] text-emerald-600 font-medium">
+                      {item.program.years[2026]?.minScore || '-'} P
+                    </p>
+                  </div>
                 </div>
 
                 {/* Re-order & Remove Controls */}

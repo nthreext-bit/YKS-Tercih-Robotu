@@ -346,13 +346,13 @@ export const GuideDataManager: React.FC<GuideDataManagerProps> = ({
       {/* Mode 2: Otomatik ÖSYM Portal Sync */}
       {activeMode === 'auto' && (
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
-                <Globe className="w-4 h-4 text-emerald-600" /> Resmi ÖSYM Kılavuz Sayfası Otomatik Senkronizasyonu
+                <Globe className="w-4 h-4 text-emerald-600" /> Resmi ÖSYM Kılavuz Sayfası Otomatik Senkronizasyonu (Tablo 3 & Tablo 4)
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                ÖSYM'nin resmi duyuru portalı (osym.gov.tr) üzerinden yayınlanan en güncel YKS kılavuzlarını otomatik sorgular.
+                ÖSYM'nin resmi duyuru portalı (osym.gov.tr) üzerindeki son 3 yıla (2024, 2025, 2026) ait Tablo 3 (Ön Lisans) ve Tablo 4 (Lisans) Excel verilerini otomatik çeker ve veritabanı oluşturur.
               </p>
             </div>
 
@@ -362,18 +362,61 @@ export const GuideDataManager: React.FC<GuideDataManagerProps> = ({
               className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-md shrink-0"
             >
               <RefreshCw className={`w-4 h-4 ${autoSyncing ? 'animate-spin' : ''}`} />
-              <span>{autoSyncing ? 'Senkronize Ediliyor...' : 'Şimdi Güncelle'}</span>
+              <span>{autoSyncing ? 'Otomatik Çekiliyor...' : 'Otomatik Kılavuz Verisi Çek'}</span>
             </button>
           </div>
 
+          {/* Official OSYM Source Links Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a
+              href="https://osym.gov.tr/2026-yuksekogretim-kurumlari-sinavi-yks-yuksekogretim-programlari-ve-kontenjanlari-kilavuzu"
+              target="_blank"
+              rel="noreferrer"
+              className="p-4 rounded-xl border border-slate-200 hover:border-emerald-500 bg-slate-50 hover:bg-white transition-all flex items-start gap-3 group"
+            >
+              <ExternalLink className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <div>
+                <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  ÖSYM 2026 YKS Kılavuzu (Tablo 3 & Tablo 4)
+                </p>
+                <p className="text-[11px] text-slate-500 mt-1">
+                  https://osym.gov.tr/2026-yuksekogretim-kurumlari-sinavi-yks...
+                </p>
+                <span className="inline-block mt-2 text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">
+                  2026 Kontenjan ve Tahmin Veritabanı
+                </span>
+              </div>
+            </a>
+
+            <a
+              href="https://osym.gov.tr/2025yks-ek-yerlestirme-sonuclarina-iliskin-sayisal-bilgiler"
+              target="_blank"
+              rel="noreferrer"
+              className="p-4 rounded-xl border border-slate-200 hover:border-emerald-500 bg-slate-50 hover:bg-white transition-all flex items-start gap-3 group"
+            >
+              <ExternalLink className="w-5 h-5 text-blue-600 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <div>
+                <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  ÖSYM 2025 YKS & Ek Yerleştirme Taban Puanlar (Tablo 3 & Tablo 4)
+                </p>
+                <p className="text-[11px] text-slate-500 mt-1">
+                  https://osym.gov.tr/2025yks-ek-yerlestirme-sonuclarina-iliskin...
+                </p>
+                <span className="inline-block mt-2 text-[10px] font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
+                  2025 Kesinleşmiş Taban Puan & Sıralama
+                </span>
+              </div>
+            </a>
+          </div>
+
           {/* Sync Log Monitor */}
-          <div className="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs space-y-1.5 h-48 overflow-y-auto">
-            <p className="text-slate-400 font-bold">// ÖSYM Otomatik ETL Servisi Günlüğü</p>
+          <div className="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs space-y-1.5 h-56 overflow-y-auto">
+            <p className="text-slate-400 font-bold">// ÖSYM Otomatik Tablo 3 & Tablo 4 ETL Servisi Günlüğü</p>
             {autoSyncLog.map((log, idx) => (
               <p key={idx} className="text-emerald-400">{log}</p>
             ))}
             {autoSyncLog.length === 0 && (
-              <p className="text-slate-500 italic">"Şimdi Güncelle" butonuna basarak senkronizasyonu başlatın.</p>
+              <p className="text-slate-500 italic">"Otomatik Kılavuz Verisi Çek" butonuna basarak 2024, 2025 ve 2026 Tablo 3 ve Tablo 4 veritabanını oluşturun.</p>
             )}
           </div>
         </div>

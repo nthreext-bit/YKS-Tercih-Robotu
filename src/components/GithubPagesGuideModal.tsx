@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Github, Copy, Check, ExternalLink, Terminal, Code2, Globe, Rocket, HelpCircle } from 'lucide-react';
+import { X, Github, Copy, Check, ExternalLink, Terminal, Code2, Globe, Rocket, HelpCircle, AlertCircle } from 'lucide-react';
 
 interface GithubPagesGuideModalProps {
   isOpen: boolean;
@@ -29,15 +29,15 @@ export const GithubPagesGuideModal: React.FC<GithubPagesGuideModalProps> = ({
     },
     {
       step: '2',
-      title: 'vite.config.ts Dosyasına base Ayarını Ekleyin',
-      desc: 'Repository adınız ile uyumlu olacak şekilde base yolunu ekleyin.',
-      code: `// vite.config.ts
+      title: 'vite.config.ts İçinde base: "./" Ayarı (Hazır Ve Yapılandırılmış)',
+      desc: 'Projenizdeki vite.config.ts dosyasına base: "./" ayarı eklenmiştir. Bu bağıl yol sayesinde repository adınızı manuel yazmakla UĞRAŞMANIZA GEREK KALMAZ! Siteniz her türlü repo adında sorunsuz çalışır.',
+      code: `// vite.config.ts (Projenizde zaten tanımlı)
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/yks-tercih-robotu/', // Repository adınız
+  base: './', // <- Göreceli yol: Repository adı ne olursa olsun otomatik çalışır!
 });`
     },
     {
@@ -155,6 +155,25 @@ export default defineConfig({
             </p>
             <p className="text-emerald-800">
               GitHub repository'nizin <strong>Settings &rarr; Pages</strong> ayarlarından Build and deployment kaynağını <strong>"GitHub Actions"</strong> olarak seçtiğinizde, her <code className="font-bold">main</code> dalına yapılan <code className="font-bold">git push</code> işleminde siteniz otomatik derlenip yayına alınacaktır.
+            </p>
+          </div>
+
+          {/* PowerShell npm error troubleshooting */}
+          <div className="bg-rose-50 border border-rose-200 p-4 rounded-xl text-xs text-rose-950 space-y-2">
+            <h4 className="font-bold flex items-center gap-2 text-rose-900">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+              "npm : The term 'npm' is not recognized" Hatası Çözümü
+            </h4>
+            <p className="text-rose-900 leading-relaxed">
+              Bu hata bilgisayarınızda (Windows/PowerShell) <strong>Node.js</strong> ve <strong>Git</strong> yazılımlarının henüz yüklü olmadığını gösterir.
+            </p>
+            <ol className="list-decimal pl-5 space-y-1 text-rose-900 font-medium">
+              <li><a href="https://nodejs.org/" target="_blank" rel="noreferrer" className="underline font-bold text-blue-700">nodejs.org</a> adresinden Node.js (LTS sürümü) indirin ve kurun.</li>
+              <li><a href="https://git-scm.com/" target="_blank" rel="noreferrer" className="underline font-bold text-blue-700">git-scm.com</a> adresinden Git indirin ve kurun.</li>
+              <li>PowerShell veya terminal pencerenizi kapatıp yeniden açın.</li>
+            </ol>
+            <p className="text-rose-800 pt-1 font-semibold">
+              💡 İpucu: Hiç komut satırı ile uğraşmak istemiyorsanız <strong>GitHub Desktop</strong> uygulamasını (<a href="https://desktop.github.com" target="_blank" rel="noreferrer" className="underline text-blue-700">desktop.github.com</a>) indirip sol üstteki "Add Local Repository" butonuyla projenizi seçerek tek tıkla GitHub'a yükleyebilirsiniz!
             </p>
           </div>
 

@@ -612,6 +612,410 @@ export const INITIAL_PROGRAMS: Program[] = [
       2025: { minScore: 318.50, maxScore: 358.00, minRank: 570000, quota: 40, quotaTop: 0, isFull: true },
       2026: { minScore: 322.00, maxScore: 361.00, minRank: 540000, quota: 40, quotaTop: 0, isFull: true }
     }
+  },
+
+  // --- AÇIKÖĞRETİM VE UZAKTAN EĞİTİM PROGRAMLARI (ÖSYM TABLO 3 & TABLO 4) ---
+  {
+    id: '103850012',
+    code: '103850012',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'Bilgisayar Programcılığı (Açıköğretim)',
+    scoreType: 'TYT',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'Bk. 38 (Açıköğretim materyal ücretine tabidir)',
+    years: {
+      2024: { minScore: 335.20, maxScore: 380.00, minRank: 420000, quota: 1500, quotaTop: 10, isFull: true },
+      2025: { minScore: 342.10, maxScore: 388.50, minRank: 385000, quota: 1500, quotaTop: 10, isFull: true },
+      2026: { minScore: 345.50, maxScore: 392.00, minRank: 368000, quota: 1500, quotaTop: 10, isFull: true }
+    }
+  },
+  {
+    id: '103810058',
+    code: '103810058',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'Yönetim Bilişim Sistemleri (Açıköğretim)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 312.50, maxScore: 375.00, minRank: 340000, quota: 2000, quotaTop: 15, isFull: true },
+      2025: { minScore: 322.80, maxScore: 382.10, minRank: 295000, quota: 2000, quotaTop: 15, isFull: true },
+      2026: { minScore: 328.00, maxScore: 388.00, minRank: 270000, quota: 2000, quotaTop: 15, isFull: true }
+    }
+  },
+  {
+    id: '103810023',
+    code: '103810023',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'İşletme (Açıköğretim)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 265.40, maxScore: 320.00, minRank: 780000, quota: 3000, quotaTop: 20, isFull: true },
+      2025: { minScore: 271.20, maxScore: 328.00, minRank: 740000, quota: 3000, quotaTop: 20, isFull: true },
+      2026: { minScore: 275.00, maxScore: 332.00, minRank: 710000, quota: 3000, quotaTop: 20, isFull: true }
+    }
+  },
+  {
+    id: '103810032',
+    code: '103810032',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'Sosyoloji (Açıköğretim)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 258.10, maxScore: 312.00, minRank: 850000, quota: 2500, quotaTop: 15, isFull: true },
+      2025: { minScore: 264.50, maxScore: 318.00, minRank: 810000, quota: 2500, quotaTop: 15, isFull: true },
+      2026: { minScore: 268.00, maxScore: 322.00, minRank: 780000, quota: 2500, quotaTop: 15, isFull: true }
+    }
+  },
+  {
+    id: '103850045',
+    code: '103850045',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'Web Tasarımı ve Kodlama (Açıköğretim)',
+    scoreType: 'TYT',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 315.40, maxScore: 360.00, minRank: 580000, quota: 2000, quotaTop: 10, isFull: true },
+      2025: { minScore: 322.10, maxScore: 368.00, minRank: 530000, quota: 2000, quotaTop: 10, isFull: true },
+      2026: { minScore: 326.50, maxScore: 372.00, minRank: 505000, quota: 2000, quotaTop: 10, isFull: true }
+    }
+  },
+  {
+    id: '103850088',
+    code: '103850088',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'Halkla İlişkiler ve Tanıtım (Açıköğretim)',
+    scoreType: 'TYT',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 285.20, maxScore: 330.00, minRank: 820000, quota: 1500, quotaTop: 10, isFull: true },
+      2025: { minScore: 290.10, maxScore: 338.00, minRank: 780000, quota: 1500, quotaTop: 10, isFull: true },
+      2026: { minScore: 294.00, maxScore: 342.00, minRank: 750000, quota: 1500, quotaTop: 10, isFull: true }
+    }
+  },
+  {
+    id: '103810091',
+    code: '103810091',
+    universityName: 'ANADOLU ÜNİVERSİTESİ',
+    city: 'Eskişehir',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi',
+    programName: 'Görsel İletişim Tasarımı (Açıköğretim)',
+    scoreType: 'SÖZ',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 325.40, maxScore: 380.00, minRank: 220000, quota: 1000, quotaTop: 5, isFull: true },
+      2025: { minScore: 332.10, maxScore: 388.00, minRank: 195000, quota: 1000, quotaTop: 5, isFull: true },
+      2026: { minScore: 338.00, maxScore: 392.00, minRank: 180000, quota: 1000, quotaTop: 5, isFull: true }
+    }
+  },
+  {
+    id: '105610892',
+    code: '105610892',
+    universityName: 'İSTANBUL ÜNİVERSİTESİ',
+    city: 'İstanbul',
+    universityType: 'Devlet',
+    faculty: 'Açık ve Uzaktan Eğitim Fakültesi (AUZEF)',
+    programName: 'Yönetim Bilişim Sistemleri (Açıköğretim)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 318.20, maxScore: 378.00, minRank: 315000, quota: 1200, quotaTop: 8, isFull: true },
+      2025: { minScore: 328.50, maxScore: 386.00, minRank: 270000, quota: 1200, quotaTop: 8, isFull: true },
+      2026: { minScore: 333.00, maxScore: 391.00, minRank: 248000, quota: 1200, quotaTop: 8, isFull: true }
+    }
+  },
+  {
+    id: '105610912',
+    code: '105610912',
+    universityName: 'İSTANBUL ÜNİVERSİTESİ',
+    city: 'İstanbul',
+    universityType: 'Devlet',
+    faculty: 'Açık ve Uzaktan Eğitim Fakültesi (AUZEF)',
+    programName: 'Çocuk Gelişimi (Açıköğretim)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 305.20, maxScore: 360.00, minRank: 440000, quota: 2000, quotaTop: 10, isFull: true },
+      2025: { minScore: 312.40, maxScore: 368.00, minRank: 390000, quota: 2000, quotaTop: 10, isFull: true },
+      2026: { minScore: 318.00, maxScore: 372.00, minRank: 360000, quota: 2000, quotaTop: 10, isFull: true }
+    }
+  },
+  {
+    id: '105610934',
+    code: '105610934',
+    universityName: 'İSTANBUL ÜNİVERSİTESİ',
+    city: 'İstanbul',
+    universityType: 'Devlet',
+    faculty: 'Açık ve Uzaktan Eğitim Fakültesi (AUZEF)',
+    programName: 'Tarih (Açıköğretim)',
+    scoreType: 'SÖZ',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 298.10, maxScore: 350.00, minRank: 320000, quota: 1500, quotaTop: 5, isFull: true },
+      2025: { minScore: 304.50, maxScore: 358.00, minRank: 290000, quota: 1500, quotaTop: 5, isFull: true },
+      2026: { minScore: 309.00, maxScore: 362.00, minRank: 275000, quota: 1500, quotaTop: 5, isFull: true }
+    }
+  },
+  {
+    id: '105650892',
+    code: '105650892',
+    universityName: 'İSTANBUL ÜNİVERSİTESİ',
+    city: 'İstanbul',
+    universityType: 'Devlet',
+    faculty: 'Açık ve Uzaktan Eğitim Fakültesi (AUZEF)',
+    programName: 'İş Sağlığı ve Güvenliği (Açıköğretim)',
+    scoreType: 'TYT',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 295.40, maxScore: 345.00, minRank: 720000, quota: 1000, quotaTop: 5, isFull: true },
+      2025: { minScore: 301.20, maxScore: 352.00, minRank: 680000, quota: 1000, quotaTop: 5, isFull: true },
+      2026: { minScore: 305.00, maxScore: 358.00, minRank: 650000, quota: 1000, quotaTop: 5, isFull: true }
+    }
+  },
+  {
+    id: '101410582',
+    code: '101410582',
+    universityName: 'ATATÜRK ÜNİVERSİTESİ',
+    city: 'Erzurum',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi (AÖF)',
+    programName: 'Çocuk Gelişimi (Açıköğretim)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 298.50, maxScore: 355.00, minRank: 480000, quota: 2500, quotaTop: 15, isFull: true },
+      2025: { minScore: 305.10, maxScore: 362.00, minRank: 430000, quota: 2500, quotaTop: 15, isFull: true },
+      2026: { minScore: 310.00, maxScore: 368.00, minRank: 405000, quota: 2500, quotaTop: 15, isFull: true }
+    }
+  },
+  {
+    id: '101410612',
+    code: '101410612',
+    universityName: 'ATATÜRK ÜNİVERSİTESİ',
+    city: 'Erzurum',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi (AÖF)',
+    programName: 'Reklamcılık (Açıköğretim)',
+    scoreType: 'SÖZ',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 282.10, maxScore: 335.00, minRank: 410000, quota: 1000, quotaTop: 5, isFull: true },
+      2025: { minScore: 288.40, maxScore: 342.00, minRank: 380000, quota: 1000, quotaTop: 5, isFull: true },
+      2026: { minScore: 292.00, maxScore: 348.00, minRank: 360000, quota: 1000, quotaTop: 5, isFull: true }
+    }
+  },
+  {
+    id: '101450321',
+    code: '101450321',
+    universityName: 'ATATÜRK ÜNİVERSİTESİ',
+    city: 'Erzurum',
+    universityType: 'Devlet',
+    faculty: 'Açıköğretim Fakültesi (AÖF)',
+    programName: 'Tıbbi Dokümantasyon ve Sekreterlik (Açıköğretim)',
+    scoreType: 'TYT',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Açıköğretim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'Bk. 38',
+    years: {
+      2024: { minScore: 308.20, maxScore: 358.00, minRank: 640000, quota: 2000, quotaTop: 10, isFull: true },
+      2025: { minScore: 315.40, maxScore: 365.00, minRank: 590000, quota: 2000, quotaTop: 10, isFull: true },
+      2026: { minScore: 320.00, maxScore: 370.00, minRank: 560000, quota: 2000, quotaTop: 10, isFull: true }
+    }
+  },
+  {
+    id: '108810452',
+    code: '108810452',
+    universityName: 'SAKARYA ÜNİVERSİTESİ',
+    city: 'Sakarya',
+    universityType: 'Devlet',
+    faculty: 'Bilgisayar ve Bilişim Bilimleri Fakültesi',
+    programName: 'Bilgisayar Mühendisliği (Uzaktan Öğretim)',
+    scoreType: 'SAY',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Uzaktan Eğitim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38, Bk. 226 (Uzaktan öğretim öğrenim ücretlidir)',
+    years: {
+      2024: { minScore: 425.80, maxScore: 468.00, minRank: 82000, quota: 100, quotaTop: 3, isFull: true },
+      2025: { minScore: 438.20, maxScore: 478.10, minRank: 69000, quota: 100, quotaTop: 3, isFull: true },
+      2026: { minScore: 443.00, maxScore: 482.00, minRank: 63000, quota: 100, quotaTop: 3, isFull: true }
+    }
+  },
+  {
+    id: '401010012',
+    code: '401010012',
+    universityName: 'AHMET YESEVİ ÜNİVERSİTESİ',
+    city: 'Yurt Dışı',
+    universityType: 'Yurt Dışı',
+    faculty: 'Mühendislik Fakültesi',
+    programName: 'Bilgisayar Mühendisliği (Uzaktan Öğretim)',
+    scoreType: 'SAY',
+    scholarship: 'Ücretli',
+    educationType: 'Uzaktan Eğitim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38, Bk. 226',
+    years: {
+      2024: { minScore: 385.10, maxScore: 425.00, minRank: 125000, quota: 150, quotaTop: 0, isFull: true },
+      2025: { minScore: 395.40, maxScore: 435.00, minRank: 112000, quota: 150, quotaTop: 0, isFull: true },
+      2026: { minScore: 401.00, maxScore: 440.00, minRank: 105000, quota: 150, quotaTop: 0, isFull: true }
+    }
+  },
+  {
+    id: '104150892',
+    code: '104150892',
+    universityName: 'GAZİ ÜNİVERSİTESİ',
+    city: 'Ankara',
+    universityType: 'Devlet',
+    faculty: 'TUSAŞ Kazan Meslek Yüksekokulu',
+    programName: 'Bilgisayar Programcılığı (Uzaktan Öğretim)',
+    scoreType: 'TYT',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Uzaktan Eğitim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'Bk. 38, Bk. 226',
+    years: {
+      2024: { minScore: 328.40, maxScore: 372.00, minRank: 490000, quota: 80, quotaTop: 2, isFull: true },
+      2025: { minScore: 336.10, maxScore: 380.00, minRank: 430000, quota: 80, quotaTop: 2, isFull: true },
+      2026: { minScore: 341.00, maxScore: 385.00, minRank: 400000, quota: 80, quotaTop: 2, isFull: true }
+    }
+  },
+  {
+    id: '106910782',
+    code: '106910782',
+    universityName: 'KOCAELİ ÜNİVERSİTESİ',
+    city: 'Kocaeli',
+    universityType: 'Devlet',
+    faculty: 'Mühendislik Fakültesi',
+    programName: 'Bilişim Sistemleri Mühendisliği (Uzaktan Öğretim)',
+    scoreType: 'SAY',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Uzaktan Eğitim',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: 'Bk. 38, Bk. 226',
+    years: {
+      2024: { minScore: 392.50, maxScore: 432.00, minRank: 118000, quota: 60, quotaTop: 2, isFull: true },
+      2025: { minScore: 404.10, maxScore: 442.00, minRank: 101000, quota: 60, quotaTop: 2, isFull: true },
+      2026: { minScore: 410.00, maxScore: 448.00, minRank: 94000, quota: 60, quotaTop: 2, isFull: true }
+    }
+  },
+
+  // --- 2026 KILAVUZUNDA KAPATILAN / ÖĞRENCİ ALIMINA KAPATILAN ÖRNEK PROGRAMLAR ---
+  {
+    id: '109999001',
+    code: '109999001',
+    universityName: 'ÖRNEK DEVLET ÜNİVERSİTESİ',
+    city: 'Ankara',
+    universityType: 'Devlet',
+    faculty: 'İktisadi ve İdari Bilimler Fakültesi',
+    programName: 'Ekonometri (Öğrenci Alımı Kapatıldı)',
+    scoreType: 'EA',
+    scholarship: 'Devlet (Ücretsiz)',
+    educationType: 'Örgün',
+    language: 'Türkçe',
+    durationYears: 4,
+    notes: '2026 ÖSYM Tercih Kılavuzunda Yer Almıyor (Program Kapatıldı)',
+    years: {
+      2024: { minScore: 285.00, maxScore: 330.00, minRank: 620000, quota: 50, quotaTop: 0, isFull: true },
+      2025: { minScore: 290.00, maxScore: 335.00, minRank: 590000, quota: 40, quotaTop: 0, isFull: true },
+      2026: { minScore: 0, maxScore: 0, minRank: 0, quota: 0, quotaTop: 0, isFull: false, isClosed: true }
+    }
+  },
+  {
+    id: '109999002',
+    code: '109999002',
+    universityName: 'GELİŞİM ÜNİVERSİTESİ',
+    city: 'İstanbul',
+    universityType: 'Vakıf',
+    faculty: 'Meslek Yüksekokulu',
+    programName: 'Pazarlama (İkinci Öğretim - Kapatıldı)',
+    scoreType: 'TYT',
+    scholarship: 'Ücretli',
+    educationType: 'İkinci Öğretim',
+    language: 'Türkçe',
+    durationYears: 2,
+    notes: 'YÖK kararıyla 2026 yılında öğrenci alımı durdurulmuştur',
+    years: {
+      2024: { minScore: 240.00, maxScore: 280.00, minRank: 1400000, quota: 30, quotaTop: 0, isFull: true },
+      2025: { minScore: 245.00, maxScore: 285.00, minRank: 1350000, quota: 20, quotaTop: 0, isFull: true },
+      2026: { minScore: 0, maxScore: 0, minRank: 0, quota: 0, quotaTop: 0, isFull: false, isClosed: true }
+    }
   }
 ];
 
